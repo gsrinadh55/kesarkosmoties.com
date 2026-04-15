@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Outfit:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 32 14% 97%;
+    --foreground: 16 28% 14%;
+  }
+
+  html {
+    /* Scale all rem-based typography across the site for consistent readability */
+    font-size: clamp(14px, 0.25vw + 13px, 16px);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-[#FAF7F2] text-[#3E2723];
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-body {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .price-number {
+    font-family: 'Outfit', sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .glass-effect {
+    background: rgba(250, 247, 242, 0.8);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(224, 216, 200, 0.5);
+  }
+}
+
+/* Cart Drawer Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes cartItemBounce {
+  0% {
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.cart-drawer-enter {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.cart-drawer-exit {
+  animation: slideOutRight 0.3s ease-in;
+}
+
+.cart-item-animate {
+  animation: cartItemBounce 0.5s ease-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive Cart Item Animations */
+@keyframes cartItemSlide {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-cartItemSlide {
+  animation: cartItemSlide 0.4s ease-out;
+}
+
+/* Magic Add to Cart Animation */
+@keyframes magicPulse {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-magic-pulse {
+  animation: magicPulse 0.8s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 1000px 100%;
+}
+
+@keyframes floatAway {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+  }
+}
+
+.animate-float-away {
+  animation: floatAway 0.6s ease-out;
+}
+
+/* Hover glow effect */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(217, 119, 54, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(217, 119, 54, 0.8);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.mobile-circle-scroll {
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+}
+
+.mobile-circle-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes wishlistHeartPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.45);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(calc(var(--wishlist-dx) * 0.22), calc(var(--wishlist-dy) * 0.22 - 18px)) scale(1.08);
+  }
+  55% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(calc(var(--wishlist-dx) * 0.62), calc(var(--wishlist-dy) * 0.62 - 26px)) scale(1.22);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--wishlist-dx), var(--wishlist-dy)) scale(0.7);
+  }
+}
+
+.wishlist-magic-heart {
+  position: fixed;
+  color: #8B2C6D;
+  font-size: 18px;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(139, 44, 109, 0.5);
+  transform: translate(-50%, -50%);
+  animation: wishlistHeartPop 0.72s cubic-bezier(0.16, 0.84, 0.24, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Responsive Breakpoints for Small Screens */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 1rem;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  .xs\:text-xs {
+    font-size: 0.75rem;
+  }
+
+  .xs\:text-sm {
+    font-size: 0.875rem;
+  }
+
+  .xs\:text-base {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+  .cart-drawer-enter,
+  .cart-drawer-exit {
+    animation-duration: 0.2s;
+  }
+}
